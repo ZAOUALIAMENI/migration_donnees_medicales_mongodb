@@ -1,23 +1,40 @@
+import os
 import pandas as pd
 from pymongo import MongoClient
+from urllib.parse import quote_plus
 
 # =========================================================
 # Fonction 1 : Connexion aux ressources
 # =========================================================
-def connect_resources(csv_file,
-                      mongo_uri="mongodb://localhost:27017",
-                      db_name="medical_db",
-                      collection_name="patients"):
+def connect_resources(csv_file, collection_name="patients"):
     """
-    Connexion au fichier CSV et à MongoDB.
+    Connexion sécurisée au fichier CSV et à MongoDB
+    via des variables d’environnement.
     """
+    # Chargement du CSV
     df = pd.read_csv(csv_file)
-    client = MongoClient(mongo_uri)
+
+    # Variables d’environnement MongoDB
+    user = os.getenv("MONGO_USER")
+    password = os.getenv("MONGO_PASSWORD")
+    host = os.getenv("MONGO_HOST")
+    port = os.getenv("MONGO_PORT")
+    db_name = os.getenv("MONGO_DB")
+
+    # Encodage du mot de passe
+    password = quote_plus(password)
+
+    uri = (
+        f"mongodb://{user}:{password}@{host}:{port}/{db_name}"
+        f"?authSource={db_name}&authMechanism=SCRAM-SHA-256"
+    )
+
+    client = MongoClient(uri)
     db = client[db_name]
     collection = db[collection_name]
-    print("Connexion MongoDB et chargement CSV OK")
-    return df, client, collection
 
+    print("Connexion MongoDB sécurisée et chargement CSV OK")
+    return df, client, collection
 
 # =========================================================
 # Test 1 : Nombre de lignes CSV vs MongoDB
