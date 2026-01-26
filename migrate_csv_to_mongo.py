@@ -1,19 +1,33 @@
+import os
 import pandas as pd
 from pymongo import MongoClient
+from urllib.parse import quote_plus
 
 # =========================================================
 # Fonction 1 : Connexion à MongoDB
 # =========================================================
-def connect_to_mongodb(uri="mongodb://localhost:27017",
-                       db_name="medical_db",
-                       collection_name="patients"):
+def connect_to_mongodb(collection_name="patients"):
     """
-    Établit une connexion à MongoDB et retourne la collection cible.
+    Connexion sécurisée à MongoDB via variables d’environnement.
     """
+    user = os.getenv("MONGO_USER")
+    password = os.getenv("MONGO_PASSWORD")
+    host = os.getenv("MONGO_HOST")
+    port = os.getenv("MONGO_PORT")
+    db_name = os.getenv("MONGO_DB")
+
+    password = quote_plus(password)
+
+    uri = (
+        f"mongodb://{user}:{password}@{host}:{port}/{db_name}"
+        f"?authSource={db_name}&authMechanism=SCRAM-SHA-256"
+    )
+
     client = MongoClient(uri)
     db = client[db_name]
     collection = db[collection_name]
-    print("Connexion à MongoDB réussie")
+
+    print("Connexion MongoDB sécurisée réussie")
     return client, collection
 
 
