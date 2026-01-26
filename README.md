@@ -23,4 +23,8 @@ Ce projet consiste à migrer un jeu de données médicales stocké dans un fichi
 ## Résultats
 - 55 500 lignes CSV migrées vers MongoDB
 - Modèle NoSQL validé
-- Tests d’intégrité et unitaires réussis
+- Tests d’intégrité réussis
+## Sécurité
+La connexion à MongoDB repose sur des utilisateurs et rôles distincts
+(admin, writer, reader). Les identifiants sont stockés dans des variables
+d’environnement afin d’éviter toute exposition de données sensibles.
