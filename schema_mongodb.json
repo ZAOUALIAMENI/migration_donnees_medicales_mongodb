@@ -1,0 +1,21 @@
+{
+  "patients": {
+    "name": "string",
+    "age": "integer",
+    "gender": "string",
+    "blood_type": "string",
+    "medical_condition": "string",
+    "medication": "string",
+    "test_results": "string",
+    "admission": {
+      "date": "string",
+      "type": "string",
+      "doctor": "string",
+      "hospital": "string",
+      "room_number": "integer"
+    },
+    "discharge_date": "string",
+    "insurance_provider": "string",
+    "billing_amount": "float"
+  }
+}
