@@ -28,3 +28,9 @@ Ce projet consiste à migrer un jeu de données médicales stocké dans un fichi
 La connexion à MongoDB repose sur des utilisateurs et rôles distincts
 (admin, writer, reader). Les identifiants sont stockés dans des variables
 d’environnement afin d’éviter toute exposition de données sensibles.
+## Tests unitaires automatisés (pytest)
+Les tests unitaires sont exécutés avec `pytest` et permettent de vérifier :
+- la cohérence entre le CSV et MongoDB ;
+- la structure des documents ;
+- les types des champs ;
+- certaines règles de qualité des données (valeurs positives, catégories valides).
