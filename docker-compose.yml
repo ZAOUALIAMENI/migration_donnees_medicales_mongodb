@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  mongo:
+    image: mongo:7
+    container_name: mongo_medical
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: medical_db
+    volumes:
+      - mongo_data:/data/db
+      - ./docker/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+
+  app:
+    build: .
+    container_name: migration_app
+    depends_on:
+      - mongo
+    environment:
+      MONGO_USER: writer_medical
+      MONGO_PASSWORD: Writer123.
+      MONGO_HOST: mongo
+      MONGO_PORT: 27017
+      MONGO_DB: medical_db
+    command: python migrate_csv_to_mongo.py
+
+volumes:
+  mongo_data:
