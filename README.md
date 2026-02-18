@@ -124,7 +124,7 @@ La conteneurisation facilite le déploiement vers le cloud.
 
 ## Installation et exécution 
 1) Cloner le repository
-   git clone <https://github.com/ZAOUALIAMENI/migration_donnees_medicales_mongodb/tree/main>
+   git clone <https://github.com/ZAOUALIAMENI/migration_donnees_medicales_mongodb.git>
    cd projet_mongodb
    
 2) Créer le fichier .env à la racine du projet
