@@ -11,19 +11,20 @@ services:
     volumes:
       - mongo_data:/data/db
       - ./docker/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
-
+    networks:
+      - medical_network
   app:
     build: .
     container_name: migration_app
     depends_on:
       - mongo
-    environment:
-      MONGO_USER: writer_medical
-      MONGO_PASSWORD: Writer123.
-      MONGO_HOST: mongo
-      MONGO_PORT: 27017
-      MONGO_DB: medical_db
+    env_file :
+      - .env
     command: python migrate_csv_to_mongo.py
-
+    networks:
+      - medical_network
 volumes:
   mongo_data:
+networks:
+  medical_network:
+    driver: bridge
