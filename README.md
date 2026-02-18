@@ -20,8 +20,8 @@ Ce projet consiste à migrer un jeu de données médicales stocké dans un fichi
 
 ## Structure du projet
 - `migrate_csv_to_mongo.py` : script de migration
-- `test_data_integrity.py` : tests d’intégrité
-- `test_unit_patients.py` : tests unitaires
+- `data_integrity_check.py` : tests d’intégrité
+- `test_unit_mongodb.py` : tests unitaires
 - `healthcare_dataset.csv` : données source
 - `schema_mongodb.json` : schéma de la base
 
